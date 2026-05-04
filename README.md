@@ -12,7 +12,7 @@ This repository tracks a 30-day intensive journey to bridge the gap between "usi
 
 Most developers "build projects." In this repo, we "rebuild understanding." AI is treated as a scaffold, never the brain. Every concept learned is implemented twice: once with guidance, and once from a completely blank slate.
 
-### The 4-Layer Daily Routine
+### The 4-Layer Daily Routine 
 Each day consists of four distinct layers:
 1. Learn (Concept): Deep dive into the internal mechanics.
 2. Build (Implementation): Construct a functional tool or system.
@@ -22,7 +22,7 @@ Each day consists of four distinct layers:
 ### The "Defend" Protocol
 To complete this layer, every project must include:
 * **The Internal Feynman Test:** You must explain the execution flow out loud or on a blank scratchpad without looking at the code. If you cannot explain the memory management or the loop cycles simply, you do not own it yet.
-* **The Narrative Code Review:** In the actual Python file, write comments directed at a future code reviewer. Do not just say what the code does. Explain "why" you chose this specific data structure, the time complexity tradeoffs, and how the interpreter is handling it under the hood.
+* **The Narrative Code Review:** In the actual Python file, write comments directed at a future code reviewer. Do not just say what the code does. Explain "why" you chose this specific data structure, time complexity tradeoffs, and how the interpreter is handling it under the hood.
 
 ---
 
