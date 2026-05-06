@@ -1,6 +1,6 @@
+
 def calculate(a, b, op):
-    # Chosen a conditional 'if/elif' structure over a dictionary mapping
-    # because for 4 operations, the overhead of hashing a dict is unnecessary.
+    # wrote multiple if statements to loop through the operations and get an answer. Also included a case for when user divides by zero
     if op == "+":
         return a + b
     elif op == "-":
@@ -10,32 +10,54 @@ def calculate(a, b, op):
     elif op == "/":
         try:
             return a / b
-        except ZeroDivisionError:
-            # Returning a string here to prevent the program from crashing,
-            # though in a larger system, I’d raise a custom Exception.
-            return "Can't divide by zero"
+        except ZeroDivisionError as am:
+            print("Can't divide by zero")
+            raise am
 
 
 def main():
-    # Using 'while True' to create a persistent CLI state;
-    # the interpreter keeps this process alive until 'break' is hit.
+
+    print("Welcome to cli calculator")
+
     while True:
-        user_input = input("\n...")
+        calc_input = input(
+            "Enter your calculations here (eg 10 + 5) or type exit to close the calculator: "
+        )
 
-        # .split() creates a list of strings. I'm assuming a space-delimited
-        # format (O(n) time complexity) to simplify parsing.
-        terms = user_input.split()
+        if calc_input.lower == "exit":
+            # will loop untill user enters exit
+            break
+        
+        terms = calc_input.split() # noticed operations like 5/5 basically those that have no space, they don't tend to fare too well.
+        try: 
+            a, b, op = float(terms[0]), float(terms[2]), (terms[1])
+            results = calculate(a, b, op)
+            print(f"Results : {results}")
+        except ValueError, IndexError:
+            print("Please follow the correct order:  term 1 space opearation space term2")
 
-        try:
-            # Unpacking terms directly. This is 'Pythonic' but risky if the
-            # input doesn't have exactly 3 parts; hence the IndexError catch.
-            a, b, op = float(terms[0]), float(terms[2]), terms[1]
-            result = calculate(a, b, op)
-            print(f"\nResult: {result}")
-        except (ValueError, IndexError):
-            # Caught multiple exceptions to handle both non-numeric input
-            # and malformed strings (like just typing "5 +") in one go.
-            print("Use correct format: term1 operation term 2")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
+
+"""
+write calculate function with all its operations
+
+write a main function and add a while loop
+
+separe input into parts
+
+add exit protocol
+
+make calculations, catch value or index errors
+
+if name = main
+"""
+
+
+
+
+
+
+
+
