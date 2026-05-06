@@ -92,7 +92,7 @@ from typing import Any
 # def add_student(name, grades):
 #     """
 #     Add a student to the grading system.
-    
+
 #     MEMORY BEHAVIOR:
 #     - 'name' is a string object in memory. The reference to this object is
 #     stored as a key in the students dict.
@@ -100,7 +100,7 @@ from typing import Any
 #     - If the caller modifies 'grades' after calling add_student(), the students
 #     dict sees those changes because it's the same object (same memory address).
 #     - This is mutability in action: the grades dict is mutable, so changes propagate.
-    
+
 #     TIME COMPLEXITY: O(1)
 #     - Dictionary insertion is constant time on average.
 #     """
@@ -114,23 +114,23 @@ from typing import Any
 # def update_grade(name, subject, new_grade):
 #     """
 #     Update a specific grade for a student.
-    
+
 #     OBJECT IDENTITY:
 #     - students[name] returns a REFERENCE to the inner dict (same object, same id()).
 #     - When we do students[name][subject] = new_grade, we are modifying that
 #       object at its memory location. No new dict is created.
 #     - This is why updates are O(1) and efficient.
-    
+
 #     ERROR HANDLING:
 #     - If the student doesn't exist, we raise KeyError (dict behavior).
 #     - If the subject doesn't exist, we create it (dict is mutable, allows new keys).
-    
+
 #     TIME COMPLEXITY: O(1)
 #     - Dictionary key access and insertion are constant time on average.
 #     """
 #     if name not in students:
 #         raise KeyError(f"Student '{name}' not found in the system.")
-    
+
 #     students[name][subject] = new_grade
 #     print(f"Updated {name}'s {subject} grade to {new_grade}")
 
@@ -141,35 +141,35 @@ from typing import Any
 # def calculate_average(name):
 #     """
 #     Calculate the average grade for a student.
-    
+
 #     REFERENCES AND ITERATION:
 #     - students[name] returns a reference to the inner dict.
 #     - When we iterate with for subject, grade in students[name].items(),
 #       'grade' is the actual integer value, not a reference (ints are immutable).
 #     - The sum() function iterates over the grades and adds them. Each iteration
 #       accesses the dict value through the reference.
-    
+
 #     TIME COMPLEXITY: O(m)
 #     - m = number of subjects for this student.
 #     - We must iterate through all subjects to compute the average.
 #     - No way to do this faster (we need to see all values).
-    
+
 #     SPACE COMPLEXITY: O(1)
 #     - We only use constant extra space (the sum variable, count, average).
 #     """
 #     if name not in students:
 #         raise KeyError(f"Student '{name}' not found in the system.")
-    
+
 #     grades_dict = students[name]  # Reference to the inner dict
-    
+
 #     if not grades_dict:
 #         return 0
-    
+
 #     # Sum the values in the dict. dict.values() returns a view object (lazy, O(1) to create).
 #     total = sum(grades_dict.values())
 #     count = len(grades_dict)  # O(1): dict maintains length, not computed
 #     average = total / count
-    
+
 #     return average
 
 
@@ -179,38 +179,38 @@ from typing import Any
 # def get_class_average():
 #     """
 #     Calculate the average grade across all students.
-    
+
 #     NESTED ITERATION AND REFERENCES:
 #     - Outer loop: for name in students iterates through keys.
 #     - Inner loop: for grade in students[name].values() iterates through grades.
 #     - students[name] is always the same inner dict object (reference).
 #     - We iterate through all values in all dicts to compute the class average.
-    
+
 #     TIME COMPLEXITY: O(n * m)
 #     - n = number of students
 #     - m = average number of subjects per student
 #     - We must access every grade in the entire system.
-    
+
 #     SPACE COMPLEXITY: O(1)
 #     - We use only constant extra space (sum, count, average).
 #     """
 #     if not students:
 #         return 0
-    
+
 #     all_grades = []
-    
+
 #     # Outer loop iterates through student keys
 #     for name in students:
 #         # Inner reference to the grades dict
 #         grades_dict = students[name]
-        
+
 #         # Iterate through the values in this dict
 #         for grade in grades_dict.values():
 #             all_grades.append(grade)
-    
+
 #     if not all_grades:
 #         return 0
-    
+
 #     return sum(all_grades) / len(all_grades)
 
 
@@ -220,20 +220,20 @@ from typing import Any
 # def view_all_grades():
 #     """
 #     Display all students and their grades.
-    
+
 #     DICTIONARY UNPACKING AND MUTABILITY SAFETY:
 #     - We use a loop to display data without modifying the original dicts.
 #     - Dictionaries are mutable, but we're only reading here, so the data is safe.
 #     - If we wanted to prevent accidental modification, we could use deepcopy(),
 #       but that's O(n * m) time and defeats the purpose of using efficient dicts.
-    
+
 #     TIME COMPLEXITY: O(n * m)
 #     - We must iterate through all students and all their grades to display them.
 #     """
 #     print("\n" + "="*60)
 #     print("ALL STUDENTS AND GRADES")
 #     print("="*60)
-    
+
 #     for name in students:
 #         grades_dict = students[name]  # Reference to inner dict
 #         print(f"\n{name}:")
@@ -247,16 +247,16 @@ from typing import Any
 # def remove_student(name):
 #     """
 #     Remove a student from the system.
-    
+
 #     OBJECT DELETION:
 #     - del students[name] removes the KEY from the outer dict.
 #     - This breaks the reference from the dict to the inner grades dict.
 #     - The inner dict object will be garbage collected (no more references).
 #     - In CPython, when refcount reaches 0, the object is freed immediately.
-    
+
 #     TIME COMPLEXITY: O(1)
 #     - Dictionary deletion is constant time on average.
-    
+
 #     MEMORY BEHAVIOR:
 #     - Before deletion: students["Alice"] points to a dict object with refcount >= 1
 #     - After deletion: if no other variables reference it, refcount becomes 0 and
@@ -264,7 +264,7 @@ from typing import Any
 #     """
 #     if name not in students:
 #         raise KeyError(f"Student '{name}' not found in the system.")
-    
+
 #     del students[name]
 #     print(f"Removed {name} from the system.")
 
@@ -275,31 +275,31 @@ from typing import Any
 # def get_top_performers(threshold=90):
 #     """
 #     Get students with average grade above a threshold.
-    
+
 #     FILTERING WITH DICTIONARY COMPREHENSION (CONCEPTUAL):
 #     - We loop through students and calculate averages.
 #     - This combines O(n) iteration with O(m) average calculation = O(n * m).
 #     - We filter results, which doesn't add asymptotic complexity.
-    
+
 #     TIME COMPLEXITY: O(n * m)
 #     - n = number of students
 #     - m = average number of subjects
 #     - We calculate average for each student, which requires iterating through subjects.
-    
+
 #     SPACE COMPLEXITY: O(k)
 #     - k = number of top performers (subset of n)
 #     - We return a new list, so extra space is proportional to result size.
 #     """
 #     top_performers = []
-    
+
 #     for name in students:
 #         avg = calculate_average(name)
 #         if avg >= threshold:
 #             top_performers.append((name, avg))
-    
+
 #     # Sort by average (descending)
 #     top_performers.sort(key=lambda x: x[1], reverse=True)
-    
+
 #     return top_performers
 
 
@@ -311,42 +311,42 @@ from typing import Any
 #     print("="*60)
 #     print("DICTIONARY-BASED STUDENT GRADING SYSTEM")
 #     print("="*60)
-    
+
 #     # Display initial data
 #     view_all_grades()
-    
+
 #     # Update a grade (mutates the inner dict in-place)
 #     print("\n--- Updating Alice's Math Grade ---")
 #     update_grade("Alice", "math", 98)
-    
+
 #     # Calculate individual average
 #     print(f"\nAlice's Average: {calculate_average('Alice'):.2f}")
 #     print(f"Bob's Average: {calculate_average('Bob'):.2f}")
 #     print(f"Charlie's Average: {calculate_average('Charlie'):.2f}")
-    
+
 #     # Calculate class average
 #     print(f"\nClass Average: {get_class_average():.2f}")
-    
+
 #     # Add a new student
 #     print("\n--- Adding New Student ---")
 #     add_student("Diana", {"math": 96, "english": 94, "science": 92})
-    
+
 #     # Get top performers
 #     print("\n--- Top Performers (90+) ---")
 #     top = get_top_performers(90)
 #     for name, avg in top:
 #         print(f"  {name}: {avg:.2f}")
-    
+
 #     # Display all grades after modifications
 #     view_all_grades()
-    
+
 #     # Remove a student
 #     print("\n--- Removing Charlie ---")
 #     remove_student("Charlie")
-    
+
 #     # Final class average
 #     print(f"\nFinal Class Average: {get_class_average():.2f}")
-    
+
 #     print("\n" + "="*60)
 #     print("EXECUTION COMPLETE")
 #     print("="*60)
@@ -371,7 +371,6 @@ record_book: dict[str, Any] = {
     "Rapheal" : {"math": 44, "english": 44, "physics": 44, "chemistry": 44, "biology": 44}
 }
 
-
 def add_student(target_dict):
     
     student_name = input("What is the name of this student of yours? ")
@@ -381,9 +380,6 @@ def add_student(target_dict):
     student_chemistry_score = input(f"What did {student_name} score in Chemistry ")
     student_biology_score = input(f"What did {student_name} score in Biology ")
     
-    
-
-
     target_dict[student_name] = {
         "math": student_math_score,
         "english": student_english_score,
@@ -394,13 +390,97 @@ def add_student(target_dict):
     
     print(f"Internal Check: {target_dict}")
     return target_dict
+
+def update_student_grade(student_name, subject, grade, target_dict):
+    if student_name not in target_dict:
+        print(f"The student, {student_name} is not registered in the record book")
+        raise KeyError
+    else:
+        target_dict[student_name][subject] = grade
+        
+    return target_dict
+
+
+def get_student_grades(student_name, target_dict):
+    if student_name not in target_dict:
+        print(f"The student, {student_name} is not registered in the record book")
+        raise KeyError
+    else:
+        print(f"The scores of {student_name} are {target_dict[student_name]}")
+        
+    return target_dict
+
+def get_class_grades(target_dict):
+
+    all_students = list(target_dict.keys())
+    all_grades =  list(target_dict.values())
+
+    print("Class grades\n")
+    for student, grades in zip(all_students, all_grades):
+        print(f" {student} | Grades: {grades}")
+
+
+def get_average_student_grade(student_name, target_dict):
+    if student_name not in target_dict:
+        print(f"The student, {student_name} is not registered in the record book")
+        raise KeyError
     
-add_student(record_book)
-print(record_book)
+    cummulative_score = []
+    for grade in target_dict[student_name].values():
+        a = int(grade)
+        cummulative_score.append(a)
+        
+    average = sum(cummulative_score) / len(cummulative_score)
+    
+    if average >= 70:
+        letter_grade = "A"
+    elif average >= 60:
+        letter_grade = "B"
+    elif average >= 50:
+        letter_grade = "C"
+    elif average >= 45:
+        letter_grade = "D"
+    elif average >= 40:
+        letter_grade = "E"
+    else: 
+        letter_grade = "F"
+    
+    print(f"The average grade for {student_name} is {letter_grade}")
 
-# def main():
-#     pass
 
-#     while True:
-#         pass
+def class_average_grade(target_dict):
+    total_score = 0
+    total_count = 0
 
+    for subject in target_dict.values():
+        for grade in subject.values():
+            total_score += int(grade)
+            total_count += 1
+
+    if total_count == 0:
+        print("The class has no grades to average.")
+        return
+
+    class_average = total_score / total_count
+
+    if class_average >= 70:
+        class_letter_grade = "A"
+    elif class_average >= 60:
+        class_letter_grade = "B"
+    elif class_average >= 50:
+        class_letter_grade = "C"
+    elif class_average >= 45:
+        class_letter_grade = "D"
+    elif class_average >= 40:
+        class_letter_grade = "E"
+    else:
+        class_letter_grade = "F"
+
+    print(f"The average grade for the class is {class_letter_grade}")
+
+
+# class_average_grade(record_book)
+# update_student_grade("Rapheal", "math", 59, record_book)
+# get_student_grades('Rapheal', record_book)
+# get_average_student_grade('Rapheal', record_book)
+get_class_grades(record_book)
